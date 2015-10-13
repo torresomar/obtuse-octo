@@ -58,12 +58,12 @@ metrics.each do |key, lkey|
   entities = Hash.new
   layers.each do |layer, index|
     entities[layer.cv_mun] = {
-      lkey => layer.instance_variable_get("@#{key}")
+      :value => layer.instance_variable_get("@#{key}")
     }
   end
   layers_json = {
     :entities => entities,
-    :quantiles => quantiles[key]
+    :quantiles => quantiles["#{lkey}"]
   }
   File.open("../data/#{lkey}.json", "w") do |f|
     f.write(layers_json.to_json)
