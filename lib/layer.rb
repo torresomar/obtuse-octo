@@ -11,5 +11,12 @@ class Layer
       instance_variable_set("@#{key}", value) unless value.nil?
     end
   end
+
+  # def to_json(*a)
+  #   {
+  #     'json_class'   => self.class.name,
+  #     'data'         => self.extrema_pob
+  #   }.to_json(*a)
+  # end
 end
 
