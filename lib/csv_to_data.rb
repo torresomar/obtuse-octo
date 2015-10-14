@@ -57,6 +57,7 @@ end
 metrics.each do |key, lkey|
   entities = Hash.new
   layers.each do |layer, index|
+    layer.instance_variable_get("@#{key}").tr(',','')
     entities[layer.cv_mun] = {
       :value => layer.instance_variable_get("@#{key}")
     }
