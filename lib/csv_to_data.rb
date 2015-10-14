@@ -10,7 +10,7 @@ csv_quantiles = CSV.parse(csv_text_quantiles)
 
 quantiles = Hash.new
 csv_quantiles.each do |row|
-  quantiles[row[0]] = [row[1], row[2], row[3], row[4]]
+  quantiles[row[0]] = [row[1].to_f, row[2].to_f, row[3].to_f, row[4].to_f]
 end
 
 layers = []
@@ -57,9 +57,14 @@ end
 metrics.each do |key, lkey|
   entities = Hash.new
   layers.each do |layer, index|
-    layer.instance_variable_get("@#{key}").tr(',','')
+    value = layer.instance_variable_get("@#{key}")
+    if(value == '--')
+      value = nil
+    else
+      value = value.tr(',','').to_f
+    end
     entities[layer.cv_mun] = {
-      :value => layer.instance_variable_get("@#{key}")
+      :value => value
     }
   end
   layers_json = {
